@@ -59,5 +59,8 @@ $empresa = ControladorEmpresa::ctrMostrarEmpresa($item, $valor);
     </form>
 
   </div>
-
+  <center><h4 class="text-primary">Version 2.0.1</h4></center>
+  
 </div>
+
+
