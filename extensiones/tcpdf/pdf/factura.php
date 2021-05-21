@@ -65,6 +65,13 @@ $pdf->startPageGroup();
 
 $pdf->AddPage();
 
+if(strlen($respuestaVenta["cae"])>0){
+	$detalleFactura ='<td style="background-color:white; width:110px; text-align:center; color:red";><br><br>Comprobante <br>no valido como factura</td>';
+}else{
+	$detalleFactura ='<td style="background-color:white; width:110px; text-align:center; color:red"><br><br>Pendiente<br>de <br>Facturacion</td>';
+}
+
+
 // ---------------------------------------------------------
 
 $bloque1 = <<<EOF
@@ -103,7 +110,7 @@ $bloque1 = <<<EOF
 				
 			</td>
 
-			<td style="background-color:white; width:110px; text-align:center; color:red"><br><br>Pendiente<br>de <br>Facturacion</td>
+			$detalleFactura;
 
 		</tr>
 
@@ -345,7 +352,7 @@ $bloque6 = <<<EOF
 				
 			</td>
 
-			<td style="background-color:white; width:110px; text-align:center; color:red"><br><br>Pendiente<br>de <br>Facturacion</td>
+			$detalleFactura;
 
 		</tr>
 
