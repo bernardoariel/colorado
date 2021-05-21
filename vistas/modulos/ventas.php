@@ -111,7 +111,9 @@
                       if($value["codigo"]=='SIN HOMOLOGAR'){
 
                         if(isset($_GET['id'])){
+
                           if($value["id"]==$_GET["id"]){
+                            
                             echo '<td><div class="btn-group"><center><button class="btn btn-warning btnHomologacionAutomatica" title="aprobacioAfip" idVenta="'.$value["id"].'" documentoHomologacion="'.$value["documento"].'" nombreHomologacion="'.$value["nombre"].'" totalHomologacion="'.$value["total"].'">Comprobando...<span class="fa fa-refresh fa-spin"></span></button></center></td>';
 
                             

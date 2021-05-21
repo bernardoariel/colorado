@@ -3,3 +3,5 @@ modelos/conexion.php
 extensiones/afip/20241591310
 extensiones/afip/30584197680
 extensiones/afip/30584197680 - copia
+extensiones/codigos/*
+extensiones/qr/temp/*

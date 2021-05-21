@@ -23,8 +23,21 @@ include('extensiones/afip/consulta.php');
   <section class="content-header">
     
     <h1>
+
+    <?php
+
+      if ($prueba=='SI'){
+
+        $tpPrueba = "<span class='text-primary'><b>PRUEBA</b></span>| |<span class='text-danger'><del>PRODUCCION</del></span>";
+
+      }else{
+
+        $tpPrueba = "<span class='text-danger'><b>PRODUCCION</b></span>| |<span class='text-primary'><del>PRUEBA</del></span>";
+        
+      }
+    ?>
       
-      Administrar Comprobantes Homologados de Afip
+      Administrar Comprobantes Homologados de Afip (CUIT: <?php echo $CUIT; ?> => <?php echo $tpPrueba ; ?> )
     
     </h1>
 
