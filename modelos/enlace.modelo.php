@@ -284,7 +284,7 @@ class ModeloEnlace{
 	=============================================*/
 	static public function mdlIngresarVentaEnlace($tabla, $datos){
 
-		$stmt = Conexion::conectarEnlace()->prepare("INSERT INTO $tabla(id,fecha,codigo,tipo,id_cliente,nombre,documento,tabla, id_vendedor, productos,impuesto,neto,total,adeuda,cae,fecha_cae,metodo_pago,fechapago,referenciapago,observaciones) VALUES (:id,:fecha,:codigo,:tipo, :id_cliente,:nombre,:documento,:tabla, :id_vendedor, :productos, :impuesto, :neto, :total,:adeuda,:cae,:fecha_cae,:metodo_pago,:fechapago,:referenciapago,:observaciones)");
+		$stmt = Conexion::conectarEnlace()->prepare("INSERT INTO $tabla(id,fecha,codigo,tipo,id_cliente,nombre,documento,tabla, id_vendedor, productos,impuesto,neto,total,adeuda,cae,fecha_cae,metodo_pago,fechapago,referenciapago,observaciones,qr) VALUES (:id,:fecha,:codigo,:tipo, :id_cliente,:nombre,:documento,:tabla, :id_vendedor, :productos, :impuesto, :neto, :total,:adeuda,:cae,:fecha_cae,:metodo_pago,:fechapago,:referenciapago,:observaciones,:qr)");
 
 		$stmt->bindParam(":id", $datos["id"], PDO::PARAM_INT);
 		$stmt->bindParam(":id_vendedor", $datos["id_vendedor"], PDO::PARAM_INT);
@@ -305,6 +305,7 @@ class ModeloEnlace{
 
 		$stmt->bindParam(":cae", $datos["cae"], PDO::PARAM_STR);
 		$stmt->bindParam(":fecha_cae", $datos["fecha_cae"], PDO::PARAM_STR);
+		$stmt->bindParam(":qr", $datos["qr"], PDO::PARAM_STR);
 
 		$stmt->bindParam(":metodo_pago", $datos["metodo_pago"], PDO::PARAM_STR);
 		$stmt->bindParam(":referenciapago", $datos["referenciapago"], PDO::PARAM_STR);

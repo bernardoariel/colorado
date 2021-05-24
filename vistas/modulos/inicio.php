@@ -213,6 +213,7 @@
                             "cae"=>$value["cae"],       
                             "fecha_cae"=>$value["fecha_cae"],
                             "referenciapago"=>$value["referenciapago"],
+                            "qr"=>$value["qr"],
                             "observaciones"=>$value["observaciones"]);
 
               #registramos los productos
@@ -226,15 +227,17 @@
 
             $ventasLocal = ControladorVentas::ctrMostrarUltimaAVenta();
             $ultimoIdLocal = $ventasLocal['id'];
-
+            // echo $ultimoIdServidor ."-".$ultimoIdLocal;//
             if ($ultimoIdServidor < $ultimoIdLocal){
               #CONSULTA DE VENTAS MAYORES AL ULTIMO ID DEL SERVIDOR
               $item = "id";
               $valor = $ultimoIdServidor;
               
               $ventasUltimasVentas = ControladorVentas::ctrMostrarUltimasVentas($item, $valor);
+              
               foreach ($ventasUltimasVentas as $key => $value) {
                 # code...
+                
                 $tabla = "colorado";
 
                 $datos = array("id"=>$value["id"],
@@ -255,6 +258,7 @@
                             "fechapago"=>$value["fechapago"],       
                             "cae"=>$value["cae"],       
                             "fecha_cae"=>$value["fecha_cae"],
+                            "qr"=>$value["qr"],
                             "referenciapago"=>$value["referenciapago"],
                             "observaciones"=>$value["observaciones"]);
 

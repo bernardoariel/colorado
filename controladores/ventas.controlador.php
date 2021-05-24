@@ -69,7 +69,7 @@ class ControladorVentas{
 	}
 
 	static public function ctrMostrarUltimasVentas($item, $valor){
-
+		
 		$tabla = "ventas";
 
 		$respuesta = ModeloVentas::mdlMostrarUltimasVentas($tabla, $item, $valor);
@@ -1431,7 +1431,7 @@ echo $productosNuevosInicio . $productosNuevosMedio . $productosNuevosFinal;
 
 			include('../extensiones/afip/homologacion.php');
 			
-			 /*=============================================
+			/*=============================================
 				GUARDAR LA VENTA
 			=============================================*/	
 			if($ERRORAFIP==0){
@@ -1466,6 +1466,7 @@ echo $productosNuevosInicio . $productosNuevosMedio . $productosNuevosFinal;
 					ModeloVentas::mdlAgregarNroComprobante($tabla, $datos);	
 					$numeroDoc=$documento;
 					$totalVenta=$ventas["total"];
+
 					include('../extensiones/qr/index.php');
 					
 					$datos = array("id"=>$_POST["idVentaHomologacion"],
@@ -1509,6 +1510,68 @@ echo $productosNuevosInicio . $productosNuevosMedio . $productosNuevosFinal;
       	#creo un array del afip
 		$items=json_decode($datos["productos"], true);
 
+		
+
+
+		#datos para la factura
+		$facturaOriginal = $ventas["codigo"];
+		// switch ($ventas["tabla"]) {
+		
+
+		// 	case 'escribanos':
+				
+		// 		$item = "id";
+		// 		$valor = $ventas["id_cliente"];
+	
+		// 		$traerCliente = ModeloEscribanos::mdlMostrarEscribanos('escribanos', $item, $valor);
+				
+		// 		if($traerCliente['facturacion']=="CUIT"){
+		// 			# code...
+		// 			$codigoTipoDoc = 80;
+		// 			$numeroDoc=$traerCliente['cuit'];
+		// 			break;
+	
+		// 		}else{
+	
+		// 			$codigoTipoDoc = 96;
+		// 			$numeroDoc=$traerCliente['documento'];
+	
+		// 		}
+					
+		// 	case 'casual':
+		// 			# code...
+		// 	// print_r ($_POST);
+		// 			$codigoTipoDoc = 96;
+		// 			$numeroDoc=$ventas["codigo"];
+		// 			break;
+	
+		// 	case 'clientes':
+	
+		// 			$item = "id";
+		// 			$valor = $ventas["id_cliente"];
+	
+		// 			$tabla = "clientes";
+	
+		// 			$traerCliente = ModeloClientes::mdlMostrarClientes($tabla, $item, $valor);
+	
+		// 			$codigoTipoDoc = 80;
+		// 			$numeroDoc=$traerCliente['cuit'];
+		// 			// # code...
+		// 			// $codigoTipoDoc = 80;
+		// 			// $numeroDoc=$traerCliente['cuit'];
+		// 			break;
+	
+		// 	default:
+		// 		# consumidor final
+		// 		$item = "id";
+		// 		$valor = $ventas["id_cliente"];
+	
+		// 		$traerCliente = ModeloEscribanos::mdlMostrarEscribanos('escribanos', $item, $valor);
+		// 		$codigoTipoDoc = 99;
+		// 		$numeroDoc=$traerCliente['cuit'];
+		// 		break;
+				
+		// }
 		#paso los datos al archivo de conexnion de afip
 		include('../extensiones/afip/notacredito.php');
 
@@ -1520,6 +1583,8 @@ echo $productosNuevosInicio . $productosNuevosMedio . $productosNuevosFinal;
 
 		$result = $afip->emitirComprobante($regcomp); 
 
+		// echo $result["code"] ;
+		// echo "aca".Wsfev1::RESULT_OK;
 	    if ($result["code"] === Wsfev1::RESULT_OK) {
 
 		/*=============================================
@@ -1547,8 +1612,10 @@ echo $productosNuevosInicio . $productosNuevosMedio . $productosNuevosFinal;
 	        $fechaCaeDia = substr($result["fechaVencimientoCAE"],-2);
 			$fechaCaeMes = substr($result["fechaVencimientoCAE"],4,-2);
 			$fechaCaeAno = substr($result["fechaVencimientoCAE"],0,4);
+			$totalVenta=$ventas["total"];
+	    	include('../extensiones/qr/index.php');
 
-	    
+
         	$datos = array(
 					   "id_vendedor"=>1,
 					   "fecha"=>date('Y-m-d'),
@@ -1566,6 +1633,7 @@ echo $productosNuevosInicio . $productosNuevosMedio . $productosNuevosFinal;
 					   "obs"=>'FC-'.$ventas['codigo'],
 					   "cae"=>$result["cae"],
 					   "fecha_cae"=>$fechaCaeDia.'/'.$fechaCaeMes.'/'.$fechaCaeAno,
+					   "qr"=>$datos_cmp_base_64."=",
 					   "fechapago"=>$fechapago,
 					   "metodo_pago"=>"EFECTIVO",
 					   "referenciapago"=>"EFECTIVO"

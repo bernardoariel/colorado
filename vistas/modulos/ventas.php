@@ -153,7 +153,7 @@
 					  $('#modalLoader').modal('hide');
 					  window.open("extensiones/fpdf/pdf/facturaElectronica.php?id="+idVentaHomologacion, "FACTURA",1,2);
     
-					  window.location = "ventas";
+					  window.location = "inicio";
 					break;
 				  
 				  default:
